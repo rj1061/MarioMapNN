@@ -40,6 +40,8 @@ def encodeMap(filename):
       newcontent += '0'
     elif character == '\n':
       newcontent += '\n'
+#    elif character == '\r':
+#      newcontent+= '\n'
     else:
       newcontent += '1'
   encodedMap = open(writePrefix + filename, 'w')
@@ -48,5 +50,3 @@ def encodeMap(filename):
 
 for i in range(0, 22):
   encodeMap(filenames[i])
-
-
