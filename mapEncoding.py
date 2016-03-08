@@ -6,7 +6,7 @@ filenames = ['SMB-w1-l1_final.txt',
              'SMB-w1-l3_final.txt',
              'SMB-w2-l1_final.txt',
              'SMB-w2-l3_final.txt',
-             'SMB-w3-l3_final.txt',
+             'SMB-w3-l1_final.txt',
              'SMB-w3-l2_final.txt',
              'SMB-w3-l3_final.txt',
              'SMB-w4-l1_final.txt',
@@ -25,7 +25,7 @@ filenames = ['SMB-w1-l1_final.txt',
              'SMB-w8-l3_final.txt',
 	]
 
-noOfFiles = 21
+noOfFiles = 22
 
 def encodeMap(filename):
   originalmap = open(readPrefix + filename, 'r')
@@ -40,13 +40,17 @@ def encodeMap(filename):
       newcontent += '0'
     elif character == '\n':
       newcontent += '\n'
-#    elif character == '\r':
-#      newcontent+= '\n'
+    elif character == '\r':
+      newcontent+= '\n'
+    elif character == '#':
+      continue
+    elif character == 'F':
+      continue
     else:
       newcontent += '1'
   encodedMap = open(writePrefix + filename, 'w')
   encodedMap.write(newcontent)
   return
 
-for i in range(0, 22):
+for i in range(0, noOfFiles):
   encodeMap(filenames[i])
