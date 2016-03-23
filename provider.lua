@@ -29,6 +29,7 @@ end
 
 function makeTensorWithWindows(f, windowSize, height, width)
   local windows = width - windowSize + 1
+  totalwindows = totalwindows + windows
   local t = torch.FloatTensor(windows, height, windowSize)
   for w=1,windows do
     for l=1,windowSize do
@@ -42,8 +43,9 @@ end
 
 local Provider = torch.class 'Provider'
 
-function Provider:__init(full)
+function getTrainingSet()
   local windowSize = 16
+  totalwindows = 0
   local wT1 = makeTensorWithWindows(parseFile2D(readAll("./encoded/SMB-w1-l1_final.txt"), 14, 199), windowSize, 14, 199)
   local wT2 = makeTensorWithWindows(parseFile2D(readAll("./encoded/SMB-w1-l2_final.txt"), 14, 166), windowSize, 14, 166)
   local wT3 = makeTensorWithWindows(parseFile2D(readAll("./encoded/SMB-w1-l3_final.txt"), 14, 153), windowSize, 14, 153)
@@ -66,4 +68,14 @@ function Provider:__init(full)
   local wT20 = makeTensorWithWindows(parseFile2D(readAll("./encoded/SMB-w8-l1_final.txt"), 14, 377), windowSize, 14, 377)
   local wT21 = makeTensorWithWindows(parseFile2D(readAll("./encoded/SMB-w8-l2_final.txt"), 14, 217), windowSize, 14, 217)
   local wT22 = makeTensorWithWindows(parseFile2D(readAll("./encoded/SMB-w8-l3_final.txt"), 14, 215), windowSize, 14, 215)
+
+  local trainingSet = torch.FloatTensor(totalwindows, 14, windowSize)
+  trainingSet = torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(torch.cat(WT1, WT2, 1), WT3, 1), WT4, 1), WT5, 1), WT6, 1), WT7, 1), WT8, 1), WT9, 1), WT10, 1), WT11, 1), WT12, 1), Wt13, 1), WT14, 1), WT15, 1), WT16, 1), WT17, 1), WT18, 1), WT19, 1), WT 20, 1), WT21, 1), WT22, 1)
+  return trainingSet
+  collectgarbage()
+end
+
+function Provider:__init(full)
+  local trainingSet = getTrainingSet()
+  print(trainingSet:size())
 end
