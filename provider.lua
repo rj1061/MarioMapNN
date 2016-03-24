@@ -75,6 +75,5 @@ function getTrainingSet()
 end
 
 function Provider:__init(full)
-  local trainingSet = getTrainingSet()
-  print(trainingSet:size())
+  return getTrainingSet()
 end
