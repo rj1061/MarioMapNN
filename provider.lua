@@ -69,11 +69,12 @@ function getTrainingSet()
   local WT21 = makeTensorWithWindows(parseFile2D(readAll("./encoded/SMB-w8-l2_final.txt"), 14, 217), windowSize, 14, 217)
   local WT22 = makeTensorWithWindows(parseFile2D(readAll("./encoded/SMB-w8-l3_final.txt"), 14, 215), windowSize, 14, 215)
 
-  local trainingSet = torch.FloatTensor(totalwindows, 14, windowSize)
-  trainingSet = torch.cat(WT1, WT2, 1):cat(WT3, 1):cat(WT4, 1):cat(WT5, 1):cat(WT6, 1):cat(WT7, 1):cat(WT8, 1):cat(WT9, 1):cat(WT10, 1):cat(WT11, 1):cat(WT12, 1):cat(WT13, 1):cat(WT14, 1):cat(WT15, 1):cat(WT16, 1):cat(WT17, 1):cat(WT18, 1):cat(WT19, 1):cat(WT20, 1):cat(WT21, 1):cat(WT22, 1)
-  return trainingSet
+  local data = torch.FloatTensor(totalwindows, 14, windowSize)
+  data = torch.cat(WT1, WT2, 1):cat(WT3, 1):cat(WT4, 1):cat(WT5, 1):cat(WT6, 1):cat(WT7, 1):cat(WT8, 1):cat(WT9, 1):cat(WT10, 1):cat(WT11, 1):cat(WT12, 1):cat(WT13, 1):cat(WT14, 1):cat(WT15, 1):cat(WT16, 1):cat(WT17, 1):cat(WT18, 1):cat(WT19, 1):cat(WT20, 1):cat(WT21, 1):cat(WT22, 1)
+  return data
 end
 
 function Provider:__init(full)
-  return getTrainingSet()
+  self.trainData = getTrainingSet()
+  local trainData = self.trainData
 end
