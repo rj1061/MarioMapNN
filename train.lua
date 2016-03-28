@@ -36,13 +36,13 @@ provider = torch.load 'provider.t7'
 provider.trainData = provider.trainData:float()
 if provider.trainData == nil then print("Data is nil") end
 
-confusion = optim.ConfusionMatrix(10)
+confusion = optim.ConfusionMatrix(opt.batchSize*14*16)
 
 parameters,gradParameters = model:getParameters()
 
 
 print(c.blue'==>' ..' setting criterion')
-criterion = nn.CrossEntropyCriterion():cuda()
+criterion = nn.MSECriterion():cuda()
 
 
 print(c.blue'==>' ..' configuring optimizer')
